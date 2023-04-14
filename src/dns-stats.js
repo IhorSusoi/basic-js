@@ -27,8 +27,21 @@ function getDNSStats(domains) {
   let arr=domains.slice();
   for(let i=0; i<domains.length; i++){
     arr[i]=arr[i].split('.');
+    arr[i]=arr[i].reverse();
+    for(let j=0; j<arr[i].length; j++){
+    arr[i][j]='.'+arr[i][j];
+    }
   }
-  return arr;
+  for(let i=0; i<arr.length; i++){
+    let jIt=arr[i].length;
+    for(let j=0; j<jIt; j++){
+      if(!objectDNS[arr[i][0]]) objectDNS[arr[i][0]]=1; 
+      else objectDNS[arr[i][0]]++;
+      arr[i][0]=arr[i][0]+arr[i][1];
+      arr[i].splice(1,1);
+    }
+  }
+  return objectDNS;
 }
 
 module.exports = {
