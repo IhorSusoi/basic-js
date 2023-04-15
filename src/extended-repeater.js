@@ -15,24 +15,23 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(str, { repeatTimes=0, separator='+', addition='', additionRepeatTimes=0, additionSeparator='|' }) {
-  
-  let result='';
-  for(let i=0; i<repeatTimes; i++){
-    result=result+str;
-    for(let j=0; j<additionRepeatTimes; j++){
-      result=result+addition+((j+1)<additionRepeatTimes?additionSeparator:'');
+function repeater(str, { repeatTimes = 1, separator = '+', addition = '', additionRepeatTimes = 1, additionSeparator = '|' }) {
+  let result = '';
+  for (let i = 0; i < repeatTimes; i++) {
+    result += str;
+    for (let j = 0; j < additionRepeatTimes; j++) {
+      result += addition;
+      if (j < additionRepeatTimes - 1) {
+        result += additionSeparator;
+      }
     }
-    if(i+1<repeatTimes)result=result+separator;
-  }
-  if(repeatTimes==0){
-    result=result+str;
-  }
-  if(additionRepeatTimes==0){
-    result=result+addition;
+    if (i < repeatTimes - 1) {
+      result += separator;
+    }
   }
   return result;
 }
+
 
 module.exports = {
   repeater
